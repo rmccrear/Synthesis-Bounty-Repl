@@ -1,0 +1,11 @@
+.mammoth-controls-container {
+  margin: 1em auto 0;
+}
+.mammoth-controls {
+  margin: 1em auto;
+  @apply justify-center;
+}
+
+.mammoth-controls-container label {
+  margin: 0 auto;
+}

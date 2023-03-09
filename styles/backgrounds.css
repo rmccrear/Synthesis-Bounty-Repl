@@ -1,0 +1,11 @@
+
+.grass-overlay {
+  background-image: url(/assets/grass.svg);
+  background-repeat: repeat-x;
+  background-position: fill;
+  background-size: cover;
+  height: 150px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}

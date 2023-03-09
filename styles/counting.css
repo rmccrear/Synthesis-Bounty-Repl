@@ -1,0 +1,9 @@
+.counting-figure {
+  margin: 5px 0px;
+  height: 60px;
+}
+
+.counting-figure .counting-hand {
+  position: relative;
+  left: 3px;
+}
