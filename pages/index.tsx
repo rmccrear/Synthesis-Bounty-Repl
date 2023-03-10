@@ -1,4 +1,4 @@
-import MammothStage from "../components/MammothStage";
+import MammothApp from "../components/MammothApp";
 
 const Home = () => {
   return (
@@ -7,7 +7,7 @@ const Home = () => {
         <h2>Hello, Pleistocene!</h2>
       </div>
       <div>
-        <MammothStage />
+        <MammothApp />
       </div>
     </>
   )
