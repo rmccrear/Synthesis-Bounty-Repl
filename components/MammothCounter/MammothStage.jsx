@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import CountingStage from "./CountingStage";
 import Mammoth from "./Mammoth";
-import config from "../mammoth.config";
+import config from "./mammoth.config";
 const { crossingTime } = config;
 
-// stated: seconds
+// started: seconds
 const checkTime = (started, tickCount, callback) => {
   if (Date.now() / 1000 - tickCount * crossingTime > started) {
     callback();

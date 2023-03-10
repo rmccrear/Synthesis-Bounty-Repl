@@ -1,10 +1,15 @@
 import { useState } from 'react';
-import MammothStage from './MammothStage';
+import MammothStage from './MammothCounter/MammothStage';
 
 export default function MammothApp() {
-  const [times, setTimes] = useState(1);
-  const [started, setStarted] = useState(false);
-  const [finished, setFinished] = useState(false);
+  const [times, setTimes] = useState(1); // how many mammoths to count
+  // when stated but not finished, we disable the controls
+  // once finished, started should be set to false again
+  // When set to true, we can start the animation (again)
+  const [started, setStarted] = useState(false); 
+  // When finished, we show the end message
+  // The message will disappear when the user clicks the button again
+  const [finished, setFinished] = useState(false); 
 
   const handleClick = () => {
     if(!started) {
@@ -14,12 +19,13 @@ export default function MammothApp() {
 
   const handleSelect = (event) => {
     setTimes(event.target.value);
-    reset();
   };
 
+  // This should reset `started` to false
+  // to allow the animation to begin again.
   const finishedCallback = () => {
-    setStarted(false);
-    setFinished(true);
+    setStarted(false); // ready to start again
+    setFinished(true); // show the end message
   };
 
   const selectElms = [];
