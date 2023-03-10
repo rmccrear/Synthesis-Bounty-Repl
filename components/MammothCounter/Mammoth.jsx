@@ -1,10 +1,10 @@
 import { motion } from "framer-motion"
 import Image from 'next/image';
-import mammoth_img_src from "../public/assets/mammoth.svg";
-import config from "../mammoth.config";
-const { crossingTime } = config;
+import mammoth_img_src from "../../public/assets/mammoth.svg";
+import config from "./mammoth.config";
+const { crossingTime, mammothImgSize} = config;
 
-const imgWidth = 150; // px
+const imgWidth = mammothImgSize; // px
 
 export default function Mammoth({ crossing, count, totalCount }) {
   const animate = { x: `calc(100vw * ${totalCount} + ${imgWidth}px)` }
@@ -17,7 +17,7 @@ export default function Mammoth({ crossing, count, totalCount }) {
         animate={crossing ? animate : {}}
         transition={crossing ? transition : {}}
       >
-        <Image src={mammoth_img_src} width="150" height="150" />
+        <Image src={mammoth_img_src} width="150" height="150" alt="Mammoth Walking"/>
         <div className="number-overlay">
           {count+1}
         </div>

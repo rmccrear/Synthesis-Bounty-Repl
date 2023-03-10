@@ -1,6 +1,4 @@
 import CountingFigure from "./CountingFigure";
-import config from "../mammoth.config";
-const {crossingTime} = config;
 
 export default function CountingStage({ currentCount }) {
   const highCount = 20;
