@@ -11,9 +11,8 @@ const checkTime = (started, tickCount, callback) => {
   }
 }
 
-export default function MammothStage() {
+export default function MammothStage({times, started, finishedCallback}) {
   const [crossing, setCrossing] = useState(false);
-  const [times, setTimes] = useState(1);
   const [startedTime, setStartedTime] = useState(null); // in seconds
   const [currentCount, setCurrentCount] = useState(null);
   const [tickCount, setTickCount] = useState(0);
@@ -26,6 +25,9 @@ export default function MammothStage() {
       setCrossing(false);
       setCurrentCount(null);
       setIsDone(true);
+      if(finishedCallback) {
+        finishedCallback();
+      }
     }
   }, [tickCount, setCurrentCount])
 
@@ -46,19 +48,21 @@ export default function MammothStage() {
     }
   }, [crossing, tickCount, startedTime])
 
-  const handleClick = () => {
-    if (!crossing) {
+  useEffect(() => {
+    console.log("started changed to", started)
+    if (started) {
+      console.log("started is true, setting started time to", Date.now() / 1000);
       setIsDone(false);
       setCrossing(true);
       setTickCount(0);
       setStartedTime(Date.now() / 1000);
     }
-  }
+  }, [started]);
 
-  const handleSelect = (e) => {
-    setTimes(event.target.value);
+
+  useEffect(()=>{
     reset();
-  };
+  }, [times]);
 
   const reset = () => {
     setIsDone(false);
@@ -78,31 +82,9 @@ export default function MammothStage() {
       />
     );
   }
-  const selectElms = [];
-  for (let i = 1; i < 16; i++) {
-    selectElms.push(
-      <option key={i} value={i}>{i}</option>
-    );
-  }
+
   return (
     <>
-      <div className="mammoth-controls-container flex flex-col justify-center">
-        <label htmlFor="select-count" className="mb-2 text-sm font-medium text-gray-900">How many mammoths?
-        </label>
-        <div className="mammoth-controls flex flex-row space-x-5">
-          <select id="select-count" className="bg-gray-50 border" onChange={handleSelect} disabled={crossing}>
-            {
-              selectElms
-            }
-          </select>
-          <button className="btn btn-blue" onClick={handleClick} disabled={crossing}>
-            {
-              crossing ?
-                "Crossing" : "Cross"
-            }
-          </button>
-        </div>
-      </div>
       <div className="mammoth-stage-container">
         <div className="mammoth-stage">
           {
