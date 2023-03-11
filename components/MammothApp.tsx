@@ -10,29 +10,25 @@ const tailwindClasses = {
 
 export default function MammothApp() {
   const [times, setTimes] = useState(1); // how many mammoths to count
-  // when stated but not finished, we disable the controls
-  // once finished, started should be set to false again
-  // When set to true, we can start the animation (again)
-  const [started, setStarted] = useState(false); 
-  // When finished, we show the end message
-  // The message will disappear when the user clicks the button again
-  const [finished, setFinished] = useState(false); 
+  // set isCrossing to true to start the animation
+  // use the callback to reset isCrossing back to false
+  const [isCrossing, setIsCrossing] = useState(false);
 
+  // set iSCrossing to true to start the animation
   const handleClick = () => {
-    if(!started) {
-      setStarted(true);
+    if(!isCrossing) {
+      setIsCrossing(true);
     } 
-  };
-
-  const handleSelect = (event: ChangeEvent) => {
-    setTimes(parseInt((event!.target as HTMLInputElement).value, 10));
   };
 
   // This should reset `started` to false
   // to allow the animation to begin again.
   const finishedCallback = () => {
-    setStarted(false); // ready to start again
-    setFinished(true); // show the end message
+    setIsCrossing(false); // ready to start again
+  };
+
+  const handleSelect = (event: ChangeEvent) => {
+    setTimes(parseInt((event!.target as HTMLInputElement).value, 10));
   };
 
   const selectElms = [];
@@ -43,23 +39,23 @@ export default function MammothApp() {
   }
 
   return (
-    <>
+    <div>
       <div className={tailwindClasses.container}>
         <label htmlFor="select-count" className={tailwindClasses.label}>How many mammoths?</label>
         <div className="flex flex-row space-x-5 my-2 my-auto">
-          <select id="select-count" aria-label="How many mammoths?" className={tailwindClasses.select} onChange={handleSelect} disabled={started && ! finished}>
+          <select id="select-count" aria-label="How many mammoths?" className={tailwindClasses.select} onChange={handleSelect} disabled={isCrossing}>
             {
               selectElms
             }
           </select>
-          <button className={tailwindClasses.button} onClick={handleClick} disabled={started && !finished }>
+          <button className={tailwindClasses.button} onClick={handleClick} disabled={isCrossing}>
             {
-              started && !finished ?
+              isCrossing ?
                 "Crossing" : "Cross"
             }
           </button>
         </div>
+        <MammothCounter times={times} started={isCrossing} finishedCallback={finishedCallback}/>
       </div>
-      <MammothCounter times={times} started={started} finishedCallback={finishedCallback}/>
-    </>)
+    </div>)
 }
