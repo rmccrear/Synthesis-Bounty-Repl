@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import Image from 'next/image';
 import mammoth_img_src from "../../public/assets/mammoth.svg";
 import config from "./mammoth.config";
-const { crossingTime, mammothImgSize} = config;
+const { crossingTime, mammothImgSize, displayWidth} = config;
 
 const imgWidth = mammothImgSize; // px
 const imgHeight = mammothImgSize;
@@ -20,9 +20,9 @@ const tailwindClasses = {
 }
 
 export default function Mammoth({ crossing, count, totalCount } : { crossing: boolean, count: number, totalCount: number}) {
-  const animate = { x: `calc(100vw * ${totalCount} + ${imgWidth}px)` }
+  const animate = { x: `calc(${displayWidth} * ${totalCount} + ${imgWidth}px)` }
   const transition = { ease: "linear", duration: totalCount * crossingTime }
-  const leftPos = `calc(-1 * 100vw * ${count} - ${imgWidth}px)`;
+  const leftPos = `calc(-1 * ${displayWidth} * ${count} - ${imgWidth}px)`;
   return (
     <div className={crossing ? "visible" : "invisible" }>
       <motion.div

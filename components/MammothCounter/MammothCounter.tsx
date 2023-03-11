@@ -3,7 +3,7 @@ import CountingStage from "./CountingStage";
 import Mammoth from "./Mammoth";
 import config from "./mammoth.config";
 import grassOverlayImg from "../../public/assets/grass.svg";
-const { crossingTime } = config;
+const { crossingTime, displayWidth } = config;
 
 const tailwindClasses = {
   finshedCount: "text-amber-500 text-2xl text-center",
@@ -102,7 +102,7 @@ export default function MammothCounter({times, started, finishedCallback} : {tim
   }
 
   return (
-    <>
+    <div className="overflow-hidden" style={{ width: displayWidth }} >
       <div className={tailwindClasses.mammothStageContainer}>
           {
             mammoths
@@ -116,6 +116,6 @@ export default function MammothCounter({times, started, finishedCallback} : {tim
         : <CountingStage currentCount={currentCount} />
       }
 
-    </>
+    </div>
   );
 }
