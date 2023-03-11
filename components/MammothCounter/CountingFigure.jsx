@@ -34,10 +34,16 @@ const tallyImageSources = [
   },
 ]
 
+const tailwindClasses = {
+  figureContainer: "flex flex-col justify-between counting-figure my-[5px]",
+  figureImageContainer: "flex flex-column items-center justify-around",
+  fingerImageContainer: "relative inset-x-[10px] flex items-center justify-around",
+};
+
 export default function CountingFigure({ count, isTarget }) {
   return (
-    <div className="counting-figure flex flex-col justify-between">
-      <div className="counting-tally flex flex-column items-center justify-around">
+    <div className={tailwindClasses.figureContainer}>
+      <div className={tailwindClasses.figureImageContainer}>
         <Image
           height={100}
           width={44}
@@ -47,17 +53,17 @@ export default function CountingFigure({ count, isTarget }) {
               :
               tallyImageSources[count % tallyImageSources.length].gray
           }
-          alt={`Counting Figure ${count}`}
+          alt={`Counting figure for ${count}`}
         />
       </div>
-      <div className="counting-hand flex items-center justify-around" style={{ width: "22px" }}>
+      <div className={tailwindClasses.fingerImageContainer} style={{ width: "22px" }}>
         {
           isTarget ?
             <Image
               height={64}
               width={22}
               src={fingerImageSource}
-              alt={`Pointing Finger for ${count}`}
+              alt={`Finger pointing at ${count}`}
             />
             :
             ""

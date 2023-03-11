@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import MammothStage from './MammothCounter/MammothStage';
 
+const tailwindClasses = {
+  container: "flex flex-col items-center justify-center mt-1 mb-0 mx-auto",
+  label: "mt-1 mb-0 text-sm font-medium text-gray-900",
+  button: "mt-1 mb-0 px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50",
+  select: "bg-gray-50 border",
+}
+
 export default function MammothApp() {
   const [times, setTimes] = useState(1); // how many mammoths to count
   // when stated but not finished, we disable the controls
@@ -37,16 +44,16 @@ export default function MammothApp() {
 
   return (
     <>
-      <div className="mammoth-controls-container flex flex-col justify-center">
-        <label htmlFor="select-count" className="mb-2 text-sm font-medium text-gray-900">How many mammoths?
+      <div className={tailwindClasses.container}>
+        <label htmlFor="select-count" className={tailwindClasses.label}>How many mammoths?
         </label>
-        <div className="mammoth-controls flex flex-row space-x-5">
-          <select id="select-count" className="bg-gray-50 border" onChange={handleSelect} disabled={started & ! finished}>
+        <div className="flex flex-row space-x-5 my-2 my-auto">
+          <select id="select-count" className={tailwindClasses.select} onChange={handleSelect} disabled={started & ! finished}>
             {
               selectElms
             }
           </select>
-          <button className="btn btn-blue" onClick={handleClick} disabled={started && !finished }>
+          <button className={tailwindClasses.button} onClick={handleClick} disabled={started && !finished }>
             {
               started && !finished ?
                 "Crossing" : "Cross"
