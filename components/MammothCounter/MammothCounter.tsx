@@ -31,7 +31,7 @@ const checkTime = (started: number, tickCount: number, callback: Function) => {
   }
 }
 
-export default function MammothStage({times, started, finishedCallback} : {times: number, started: boolean, finishedCallback?: Function}) {
+export default function MammothCounter({times, started, finishedCallback} : {times: number, started: boolean, finishedCallback?: Function}) {
   const [crossing, setCrossing] = useState(false);
   const [startedTime, setStartedTime] = useState(0); // in seconds
   const [currentCount, setCurrentCount] = useState(0);
