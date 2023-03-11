@@ -40,7 +40,7 @@ const tailwindClasses = {
   fingerImageContainer: "relative inset-x-[10px] flex items-center justify-around",
 };
 
-export default function CountingFigure({ count, isTarget }) {
+export default function CountingFigure({ count, isTarget } : { count: number, isTarget: boolean }) {
   return (
     <div className={tailwindClasses.figureContainer}>
       <div className={tailwindClasses.figureImageContainer}>

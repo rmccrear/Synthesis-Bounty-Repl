@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import MammothStage from './MammothCounter/MammothStage';
+import { useState, ChangeEvent } from 'react';
+import MammothCounter from './MammothCounter/MammothCounter';
 
 const tailwindClasses = {
   container: "flex flex-col items-center justify-center mt-1 mb-0 mx-auto",
@@ -24,8 +24,8 @@ export default function MammothApp() {
     } 
   };
 
-  const handleSelect = (event) => {
-    setTimes(event.target.value);
+  const handleSelect = (event: ChangeEvent) => {
+    setTimes(parseInt((event!.target as HTMLInputElement).value, 10));
   };
 
   // This should reset `started` to false
@@ -45,10 +45,9 @@ export default function MammothApp() {
   return (
     <>
       <div className={tailwindClasses.container}>
-        <label htmlFor="select-count" className={tailwindClasses.label}>How many mammoths?
-        </label>
+        <label htmlFor="select-count" className={tailwindClasses.label}>How many mammoths?</label>
         <div className="flex flex-row space-x-5 my-2 my-auto">
-          <select id="select-count" className={tailwindClasses.select} onChange={handleSelect} disabled={started & ! finished}>
+          <select id="select-count" aria-label="How many mammoths?" className={tailwindClasses.select} onChange={handleSelect} disabled={started && ! finished}>
             {
               selectElms
             }
@@ -61,6 +60,6 @@ export default function MammothApp() {
           </button>
         </div>
       </div>
-      <MammothStage times={times} started={started} finishedCallback={finishedCallback}/>
+      <MammothCounter times={times} started={started} finishedCallback={finishedCallback}/>
     </>)
 }
