@@ -1,3 +1,4 @@
+import {CSSProperties} from "react";
 import { motion } from "framer-motion"
 import Image from 'next/image';
 import mammoth_img_src from "../../public/assets/mammoth.svg";
@@ -7,9 +8,9 @@ const { crossingTime, mammothImgSize} = config;
 const imgWidth = mammothImgSize; // px
 const imgHeight = mammothImgSize;
 
-const style = {
+const style : Record<string, CSSProperties> = {
   numberOverlay: {
-    ["font-family"]: "\"Comic Sans MS\", \"Comic Sans\", cursive",
+    "fontFamily": "\"Comic Sans MS\", \"Comic Sans\", cursive",
   }
 }
 
@@ -18,7 +19,7 @@ const tailwindClasses = {
   movingContainer: "absolute ",
 }
 
-export default function Mammoth({ crossing, count, totalCount }) {
+export default function Mammoth({ crossing, count, totalCount } : { crossing: boolean, count: number, totalCount: number}) {
   const animate = { x: `calc(100vw * ${totalCount} + ${imgWidth}px)` }
   const transition = { ease: "linear", duration: totalCount * crossingTime }
   const leftPos = `calc(-1 * 100vw * ${count} - ${imgWidth}px)`;

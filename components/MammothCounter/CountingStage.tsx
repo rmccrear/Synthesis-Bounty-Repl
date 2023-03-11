@@ -1,6 +1,6 @@
 import CountingFigure from "./CountingFigure";
 
-export default function CountingStage({ currentCount }) {
+export default function CountingStage({ currentCount } : { currentCount: number }) {
   const highCount = 20;
   const countingFigures = [];
   for (let i = 0; i < highCount; i++) {

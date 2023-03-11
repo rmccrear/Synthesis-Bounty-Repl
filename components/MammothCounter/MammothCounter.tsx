@@ -1,31 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import CountingStage from "./CountingStage";
 import Mammoth from "./Mammoth";
 import config from "./mammoth.config";
 import grassOverlayImg from "../../public/assets/grass.svg";
 const { crossingTime } = config;
-console.log(grassOverlayImg)
-/*
-.mammoth-stage-container {
-  position: relative;
-  left: 0px;
-  top: 0px;
-  border: 3px solid #73AD21;
-  height: 150px;
-}
-*/
+
 const tailwindClasses = {
   finshedCount: "text-amber-500 text-2xl text-center",
   mammothStageContainer: "relative h-[150px]",
 };
 
-const styles = {
+const styles : Record<string, CSSProperties> = {
   grassOverlay: {
-    // ["background-image"]: `url(/assets/grass.svg)`,
-    ["background-image"]: `url(${grassOverlayImg.src})`,
-    ["background-repeat"]: "repeat-x",
-    ["background-position"]: "fill",
-    ["background-size"]: "cover",
+    backgroundImage: `url(${grassOverlayImg.src})`,
+    backgroundRepeat: "repeat-x",
+    backgroundPosition: "fill",
+    backgroundSize: "cover",
     height: "150px",
     position: "absolute",
     top: "0px",
@@ -35,16 +25,16 @@ const styles = {
 
 // started: time when the mammoth started crossing
 // This will be called every 250 ms to check how many times the mammoth should have crossed by now.
-const checkTime = (started, tickCount, callback) => {
+const checkTime = (started: number, tickCount: number, callback: Function) => {
   if (Date.now() / 1000 - tickCount * crossingTime > started) {
     callback();
   }
 }
 
-export default function MammothStage({times, started, finishedCallback}) {
+export default function MammothStage({times, started, finishedCallback} : {times: number, started: boolean, finishedCallback?: Function}) {
   const [crossing, setCrossing] = useState(false);
-  const [startedTime, setStartedTime] = useState(null); // in seconds
-  const [currentCount, setCurrentCount] = useState(null);
+  const [startedTime, setStartedTime] = useState(0); // in seconds
+  const [currentCount, setCurrentCount] = useState(0);
   const [tickCount, setTickCount] = useState(0);
   const [isDone, setIsDone] = useState(false);
 
@@ -53,7 +43,7 @@ export default function MammothStage({times, started, finishedCallback}) {
       setCurrentCount(tickCount);
     } else {
       setCrossing(false);
-      setCurrentCount(null);
+      setCurrentCount(0);
       setIsDone(true);
       if(finishedCallback) {
         finishedCallback();
@@ -79,9 +69,7 @@ export default function MammothStage({times, started, finishedCallback}) {
   }, [crossing, tickCount, startedTime])
 
   useEffect(() => {
-    console.log("started changed to", started)
     if (started) {
-      console.log("started is true, setting started time to", Date.now() / 1000);
       setIsDone(false);
       setCrossing(true);
       setTickCount(0);
