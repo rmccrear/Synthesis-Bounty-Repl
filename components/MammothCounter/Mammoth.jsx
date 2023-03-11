@@ -5,20 +5,33 @@ import config from "./mammoth.config";
 const { crossingTime, mammothImgSize} = config;
 
 const imgWidth = mammothImgSize; // px
+const imgHeight = mammothImgSize;
+
+const style = {
+  numberOverlay: {
+    ["font-family"]: "\"Comic Sans MS\", \"Comic Sans\", cursive",
+  }
+}
+
+const tailwindClasses = {
+  numberOverlay: "absolute text-4xl font-bold text-slate-50 inset-[50px] ",
+  movingContainer: "absolute ",
+}
 
 export default function Mammoth({ crossing, count, totalCount }) {
   const animate = { x: `calc(100vw * ${totalCount} + ${imgWidth}px)` }
   const transition = { ease: "linear", duration: totalCount * crossingTime }
   const leftPos = `calc(-1 * 100vw * ${count} - ${imgWidth}px)`;
   return (
-    <div style={{ visibility: crossing ? "visible" : "hidden" }}>
+    <div className={crossing ? "visible" : "invisible" }>
       <motion.div
-        style={{ position: "absolute", left: leftPos }}
+        className={tailwindClasses.movingContainer}
+        style={{ left: leftPos }}
         animate={crossing ? animate : {}}
         transition={crossing ? transition : {}}
       >
-        <Image src={mammoth_img_src} width="150" height="150" alt="Mammoth Walking"/>
-        <div className="number-overlay">
+        <Image src={mammoth_img_src} width={imgWidth} height={imgHeight} alt="A woolly mammoth walking across the screen."/>
+        <div className={tailwindClasses.numberOverlay} style={style.numberOverlay}>
           {count+1}
         </div>
       </motion.div>

@@ -2,9 +2,39 @@ import { useState, useEffect } from "react";
 import CountingStage from "./CountingStage";
 import Mammoth from "./Mammoth";
 import config from "./mammoth.config";
+import grassOverlayImg from "../../public/assets/grass.svg";
 const { crossingTime } = config;
+console.log(grassOverlayImg)
+/*
+.mammoth-stage-container {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  border: 3px solid #73AD21;
+  height: 150px;
+}
+*/
+const tailwindClasses = {
+  finshedCount: "text-amber-500 text-2xl text-center",
+  mammothStageContainer: "relative h-[150px]",
+};
 
-// started: seconds
+const styles = {
+  grassOverlay: {
+    // ["background-image"]: `url(/assets/grass.svg)`,
+    ["background-image"]: `url(${grassOverlayImg.src})`,
+    ["background-repeat"]: "repeat-x",
+    ["background-position"]: "fill",
+    ["background-size"]: "cover",
+    height: "150px",
+    position: "absolute",
+    top: "0px",
+    width: "100%",
+  }
+}
+
+// started: time when the mammoth started crossing
+// This will be called every 250 ms to check how many times the mammoth should have crossed by now.
 const checkTime = (started, tickCount, callback) => {
   if (Date.now() / 1000 - tickCount * crossingTime > started) {
     callback();
@@ -85,16 +115,14 @@ export default function MammothStage({times, started, finishedCallback}) {
 
   return (
     <>
-      <div className="mammoth-stage-container">
-        <div className="mammoth-stage">
+      <div className={tailwindClasses.mammothStageContainer}>
           {
             mammoths
           }
-          <div className="grass-overlay"></div>
-        </div>
+          <div style={styles.grassOverlay}></div>
       </div>
       {isDone ?
-        <div className="finished-count">
+        <div className={tailwindClasses.finshedCount}>
           {times} mammoth{times > 1 ? "s" : ""}!
         </div>
         : <CountingStage currentCount={currentCount} />
