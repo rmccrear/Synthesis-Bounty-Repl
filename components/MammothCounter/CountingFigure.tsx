@@ -16,19 +16,19 @@ const tallyImageSources = [
     gray: tally1Gray,
     color: tally1Color
   },
-    {
+  {
     gray: tally2Gray,
     color: tally2Color
   },
-    {
+  {
     gray: tally3Gray,
     color: tally3Color
   },
-    {
+  {
     gray: tally4Gray,
     color: tally4Color
   },
-    {
+  {
     gray: tally5Gray,
     color: tally5Color
   },
@@ -40,13 +40,14 @@ const tailwindClasses = {
   fingerImageContainer: "relative inset-x-[10px] flex items-center justify-around",
 };
 
-export default function CountingFigure({ count, isTarget } : { count: number, isTarget: boolean }) {
+export default function CountingFigure({ count, isTarget }: { count: number, isTarget: boolean }) {
   return (
     <div className={tailwindClasses.figureContainer}>
       <div className={tailwindClasses.figureImageContainer}>
         <Image
           height={100}
           width={44}
+          priority={true}
           src={
             isTarget ?
               tallyImageSources[count % tallyImageSources.length].color
@@ -62,6 +63,7 @@ export default function CountingFigure({ count, isTarget } : { count: number, is
             <Image
               height={64}
               width={22}
+              priority={true}
               src={fingerImageSource}
               alt={`Finger pointing at ${count}`}
             />
